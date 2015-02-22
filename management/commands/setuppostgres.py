@@ -40,8 +40,10 @@ class Command(BaseCommand):
         
         
 	#Below 2 lines will be running where postgres container is running
-        #run('su postgres -c "psql -c \\"CREATE USER %(db_user)s PASSWORD \'%(db_password)s\';\\""' % context, err_codes=[0,1])
-        #run('su postgres -c "psql -c \\"CREATE DATABASE %(db_name)s OWNER %(db_user)s;\\""' % context, err_codes=[0,1])
+  
+        if os.path.exists('/home/vct/vct_true') is True:
+            run('su postgres -c "psql -c \\"CREATE USER %(db_user)s PASSWORD \'%(db_password)s\';\\""' % context, err_codes=[0,1])
+            run('su postgres -c "psql -c \\"CREATE DATABASE %(db_name)s OWNER %(db_user)s;\\""' % context, err_codes=[0,1])
         
         context.update({'settings': os.path.join(get_project_root(), 'settings.py')})
         
